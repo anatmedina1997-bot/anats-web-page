@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>anat's world</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  
+  <body>
+    <div class ="stage" id="stage">
+    <canvas id="canvas"></canvas>
+   
+    <h1 class="center-title" id="title">anat's world </h1>
+    <img class="icon i1" src="pixel.jpg" data-text="books">
+    <img class="icon i2" src="paint.jpg" data-text="painting">
+    <img class="icon i3" src="snitch.jpg" data-text="magic">
+    <img class="icon i4" src="cats.jpg" data-text="puss in boots">
+    <img class="icon i5" src="dogs.jpg" data-text="woof woof">
+    <img class="icon i6" src="mexican flag.jpg" data-text="mexico <3">
+    <img class="icon i7" src="skate.webp" data-text="skating">
+    <img class="icon i8" src="pizza.jpg" data-text="pizza :3">
+
+  </div>
+<script>  const title = document.getElementById("title"); 
+ const icons = document.querySelectorAll(".icon");  
+
+ document.querySelector(".i3").addEventListener("click", () => {
+ window.open("https://www.youtube.com/watch?v=OXBw9v1fC7g", "_blank");
+});
+  document.querySelector(".i4").addEventListener("click", () => {
+  window.open("https://www.youtube.com/shorts/drtMiHBqO6c", "_blank");
+});
+    document.querySelector(".i1").addEventListener("click", () => {
+  window.open("https://www.youtube.com/watch?v=Jr58Uf1srfo", "_blank");
+});
+    document.querySelector(".i6").addEventListener("click", () => {
+  window.open("https://www.youtube.com/watch?v=0TuwlFQGbr0", "_blank");
+});
+    document.querySelector(".i8").addEventListener("click", () => {
+  window.open("https://www.youtube.com/watch?v=hcjYnjDbvTw", "_blank");
+});
+    document.querySelector(".i7").addEventListener("click", () => {
+  window.open("https://www.youtube.com/watch?v=GZJD54BELuw", "_blank");
+});
+    document.querySelector(".i2").addEventListener("click", () => {
+  window.open("https://www.youtube.com/watch?v=diU70KshcjA&list=RDdiU70KshcjA&start_radio=1", "_blank");
+});
+    document.querySelector(".i5").addEventListener("click", () => {
+  window.open("https://www.youtube.com/watch?v=lQOaJ7nyBaI", "_blank");
+});
+
+ const stage = document.getElementById("stage");  
+ const defaultText = title.textContent;  
+ const defaultBg = "#0b0bd2";  
+ function randomColor() {    
+  return `hsl(${Math.random() * 360}, 70%, 50%)`;
+    }  
+    icons.forEach(icon => 
+    {    
+      icon.addEventListener("mouseenter", () => {      title.textContent = icon.dataset.text;      stage.style.backgroundColor = randomColor();    });    icon.addEventListener("mouseleave", () => {      title.textContent = defaultText;      stage.style.backgroundColor = defaultBg; 
+
+    });  
+  });
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+// Make canvas fill screen
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// Store mouse trail
+let trail = [];
+
+// Track mouse
+window.addEventListener("mousemove", (e) => {  
+  trail.push({    
+    x: e.clientX,    
+    y: e.clientY,    
+    color: randomColor()  
+  });  
+  
+  if (trail.length > 40) { 
+      trail.shift(); 
+     }
+    });
+      
+      // Draw loop
+      function draw() {  
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.lineWidth = 10;  ctx.lineCap = "round";  
+        
+    for (let i = 0; i < trail.length - 1; i++) {    
+      const p1 = trail[i];    
+      const p2 = trail[i + 1];    
+      
+      ctx.strokeStyle = p1.color;    
+      
+      ctx.beginPath();    
+      ctx.moveTo(p1.x, p1.y);    
+      ctx.lineTo(p2.x, p2.y);    
+      ctx.stroke(); 
+   }  
+   requestAnimationFrame(draw);
+  }
+  draw();
+
+</script>
+</body>
+
+
+
+</html>
